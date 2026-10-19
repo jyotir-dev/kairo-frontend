@@ -1,0 +1,16 @@
+/* Colors */
+:root {
+
+    /* Text */
+    --text-primary: #ffffff;
+    --text-secondary: #ffffffa6;
+    --text-muted-1: rgba(255, 255, 255, 0.65);
+    --text-muted-2: rgba(255, 255, 255, 0.40);
+
+    /* Button */
+    --button-primary-bg: #ffffff;
+    --button-primary-text: #0b0a10;
+
+    /* Accent */
+    --accent-soft: #c4b5fd;
+}
