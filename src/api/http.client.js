@@ -1,6 +1,15 @@
 // Base URL
 const BASE_URL = 'http://localhost:5000';
 
+// Read JSON
+async function readJSON(response) {
+    try {
+        return await response.json();
+    } catch {
+        return null;
+    }
+}
+
 // Request
 async function request(method, path, body) {
     const response = await fetch(`${BASE_URL}${path}`, {
@@ -10,7 +19,7 @@ async function request(method, path, body) {
         body: body ? JSON.stringify(body) : undefined
     });
 
-    const data = await response.json();
+    const data = await readJSON(response);
 
     if (!response.ok) {
         const error = new Error(data?.message || 'Something went wrong.');
