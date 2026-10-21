@@ -1,10 +1,40 @@
 <script setup>
+// Vue
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+// Services
+import * as authService from '@/services/auth.service';
+
+// Components
 import AuthTabs from '@/components/navigation/AuthTabs.vue';
 import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
 
-const loading = ref(false)
+// Router
+const router = useRouter();
+
+// Variables
+const username = ref('');
+const password = ref('');
+
+// State
+const loading = ref(false);
+
+// Login
+const login = async () => {
+    loading.value = true;
+
+    try {
+        const response = await authService.login(username.value, password.value);
+        console.log(response);
+        router.push({ name: 'dashboard' });
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false;
+    }
+};
 </script>
 
 <template>
@@ -16,7 +46,7 @@ const loading = ref(false)
         </div>
         <AuthInput icon="eva:person-fill" name="Username" type="text" placeholder="username" />
         <AuthInput icon="eva:shield-fill" name="Password" type="password" placeholder="password" />
-        <AuthButton >Log in</AuthButton>
+        <AuthButton @click="login" :loading="loading" >Log in</AuthButton>
         <a class="forgot-password" href="forgot-password">Forgot password?</a>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
