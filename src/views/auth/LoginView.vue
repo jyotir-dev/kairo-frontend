@@ -31,7 +31,7 @@ const login = async () => {
     try {
         const response = await authService.login(username.value, password.value);
         console.log(response);
-        notificationStore.error('Welcome back', `logged in as ${response.user.username}`);
+        notificationStore.success('Welcome back', `logged in as ${response.user.username}`);
         router.push({ name: 'dashboard' });
     } catch (error) {
         console.log(error)
