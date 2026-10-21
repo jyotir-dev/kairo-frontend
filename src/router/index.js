@@ -14,12 +14,14 @@ const router = createRouter({
                 {
                     path: 'signup',
                     name: 'signup',
-                    component: () => import('@/views/auth/SignupView.vue')
+                    component: () => import('@/views/auth/SignupView.vue'),
+                    meta: { guestOnly: true }
                 },
                 {
                     path: 'login',
                     name: 'login',
-                    component: () => import('@/views/auth/LoginView.vue')
+                    component: () => import('@/views/auth/LoginView.vue'),
+                    meta: { guestOnly: true }
                 },
                 {
                     path: 'forgot-password',
