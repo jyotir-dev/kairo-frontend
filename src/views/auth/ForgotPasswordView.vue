@@ -1,15 +1,45 @@
 <script setup>
+// Vue
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+// Services
+import * as authService from '@/services/auth.service';
+
+// Stores
+import notificationStore from '@/stores/notification.store';
+
+// Components
 import KeyIcon from '@/components/icons/KeyIcon.vue';
 import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
 import MailCheckIcon from '@/components/icons/MailCheckIcon.vue';
 
+// Router
 const router = useRouter();
 
+// Variables
+const email = ref();
+
+// States
 const sent = ref(false);
 const loading = ref(false);
+
+// Forgot Password
+const forgotPassword = async () => {
+    loading.value = true;
+
+    try {
+        const response = await authService.forgotPassword(email.value);
+        console.log(response);
+        sent.value = true;
+    } catch (error) {
+        console.log(error);
+        notificationStore.error('Reset link not sent', error.message);
+    } finally {
+        loading.value = false;
+    }
+};
 </script>
 
 <template>
@@ -23,8 +53,8 @@ const loading = ref(false);
             <h1 class="headline">Forgot your password?</h1>
             <p class="text">Enter the email on your account and we'll send you a link to choose a new one.</p>
         </div>
-        <AuthInput icon="eva:email-fill" name="Email" type="email" placeholder="you@example.com" />
-        <AuthButton @click="sent=!sent">Send reset link</AuthButton>
+        <AuthInput v-model="email" icon="eva:email-fill" name="Email" type="email" placeholder="you@example.com" />
+        <AuthButton @click="forgotPassword" :loading="loading" >Send reset link</AuthButton>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
     <!-- Sent View -->
