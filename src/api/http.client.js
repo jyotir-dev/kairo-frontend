@@ -1,5 +1,8 @@
 // Base URL
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+// Timeout
+const TIMEOUT_MS = 15000;
 
 // Read JSON
 async function readJSON(response) {
@@ -12,12 +15,20 @@ async function readJSON(response) {
 
 // Request
 async function request(method, path, body) {
-    const response = await fetch(`${BASE_URL}${path}`, {
-        method,
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : undefined
-    });
+
+    let response;
+
+    try {
+        response = await fetch(`${BASE_URL}${path}`, {
+            method,
+            credentials: 'include',
+            headers: body ? { 'Content-Type': 'application/json' } : undefined,
+            body: body ? JSON.stringify(body) : undefined,
+            signal: AbortSignal.timeout(TIMEOUT_MS)
+        });
+    } catch {
+        throw new Error('Unable to reach the server. Please try again.');
+    }
 
     const data = await readJSON(response);
 
