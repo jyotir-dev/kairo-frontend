@@ -12,6 +12,8 @@ import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
 import PasswordStrength from '@/components/feedback/PasswordStrength.vue';
 
+import notificationStore from '@/stores/notification.store';
+
 // Router
 const router = useRouter();
 
@@ -30,9 +32,11 @@ const signup = async () => {
     try {
         const response = await authService.signup(username.value, email.value, password.value);
         console.log(response);
+        notificationStore.success('Account created', 'Check your inbox to verify your email');
         router.push({ name: 'dashboard' });
     } catch (error) {
         console.log(error);
+        notificationStore.error('Unable to sign up', error.message);
     } finally {
         loading.value = false;
     }
