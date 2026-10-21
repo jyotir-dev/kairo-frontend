@@ -6,6 +6,9 @@ import { useRouter } from 'vue-router';
 // Services
 import * as authService from '@/services/auth.service';
 
+// Stores
+import notificationStore from '@/stores/notification.store';
+
 // Components
 import AuthTabs from '@/components/navigation/AuthTabs.vue';
 import AuthInput from '@/components/inputs/AuthInput.vue';
@@ -28,9 +31,11 @@ const login = async () => {
     try {
         const response = await authService.login(username.value, password.value);
         console.log(response);
+        notificationStore.error('Welcome back', `logged in as ${response.user.username}`);
         router.push({ name: 'dashboard' });
     } catch (error) {
         console.log(error)
+        notificationStore.error('Unable to log in', error.message);
     } finally {
         loading.value = false;
     }
