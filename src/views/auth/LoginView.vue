@@ -52,7 +52,7 @@ const login = async () => {
         <AuthInput v-model="username" icon="eva:person-fill" name="Username" type="text" placeholder="username" />
         <AuthInput v-model="password" icon="eva:shield-fill" name="Password" type="password" placeholder="password" />
         <AuthButton @click="login" :loading="loading" >Log in</AuthButton>
-        <a class="forgot-password" href="forgot-password">Forgot password?</a>
+        <RouterLink class="forgot-password" :to="{ name: 'forgotPassword' }">Forgot password?</RouterLink>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
 </template>

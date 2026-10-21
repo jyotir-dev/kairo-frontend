@@ -45,7 +45,7 @@ const forgotPassword = async () => {
 <template>
     <!-- Forgot Password View -->
     <div v-if="!sent" class="forgot-password-view">
-        <a class="back-login" href="login">&leftarrow; Back to log in</a>
+        <RouterLink class="back-login" :to="{ name: 'login' }">&leftarrow; Back to log in</RouterLink>
         <div class="key-badge">
             <KeyIcon />
         </div>
