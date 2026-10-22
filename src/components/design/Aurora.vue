@@ -31,7 +31,7 @@ const PAGES = {
         text: 'Reset links work once, expire in an hour, and sign out every device when used.'
     },
     resetPassword: {
-        headline: 'Almost\nback in.',
+        headline: 'Almost back in.',
         text: 'Pick a new password. Saving it signs out every other device, so only you have access.'
     }
 };
