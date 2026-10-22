@@ -22,7 +22,7 @@ const router = useRouter();
 const email = ref();
 
 // States
-const sent = ref(false);
+const sent = ref(true);
 const loading = ref(false);
 
 // Forgot Password
@@ -161,20 +161,23 @@ const forgotPassword = async () => {
     display: flex;
     align-items: stretch;
     flex-direction: column;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.045);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .information {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 14px;
     font-family: var(--font-main);
     font-size: 12px;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.45);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.information + .information {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .value {
     color: white;
