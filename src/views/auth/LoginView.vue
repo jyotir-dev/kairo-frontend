@@ -83,6 +83,7 @@ const login = async () => {
     font-family: var(--font-main);
     font-size: 12px;
     font-weight: 400;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.45);
 }
 .footer {
