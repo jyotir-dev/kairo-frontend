@@ -75,13 +75,13 @@ const page = computed(() => PAGES[route.name] ?? PAGES.login);
     flex-direction: column;
     justify-content: space-between;
     padding: 40px;
-    background-color: #1e0b4b;
+    background-color: #2a1d6b;
     background-image:
-        linear-gradient(180deg, rgba(3, 3, 5, 0) 55%, rgba(3, 3, 5, 0.5) 100%),
-        radial-gradient(circle at 12% 10%, #a855f7 0%, rgba(168, 85, 247, 0) 45%),
-        radial-gradient(circle at 92% 16%, #ec4899 0%, rgba(236, 72, 153, 0) 40%),
-        radial-gradient(circle at 55% 96%, #4f46e5 0%, rgba(79, 70, 229, 0) 55%),
-        radial-gradient(circle at 18% 78%, #7c3aed 0%, rgba(124, 58, 237, 0) 40%);
+        linear-gradient(180deg, rgba(3, 3, 5, 0) 55%, rgba(3, 3, 5, 0.45) 100%),
+        radial-gradient(circle at 8% 0%, rgba(168, 85, 247, 0.9) 0%, rgba(168, 85, 247, 0) 50%),
+        radial-gradient(circle at 100% 18%, rgba(109, 40, 217, 0.6) 0%, rgba(109, 40, 217, 0) 48%),
+        radial-gradient(circle at 70% 115%, rgba(67, 56, 202, 0.95) 0%, rgba(67, 56, 202, 0) 60%),
+        radial-gradient(circle at 40% 58%, rgba(30, 27, 75, 0.65) 0%, rgba(30, 27, 75, 0) 42%);
 }
 
 .aurora-name {

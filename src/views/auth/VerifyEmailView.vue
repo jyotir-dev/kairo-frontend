@@ -35,10 +35,10 @@ import MailCheckIcon from '@/components/icons/MailCheckIcon.vue';
     height: 56px;
     border: 1px solid transparent;
     border-radius: 16px;
-    color: #e9d5ff;
+    color: #e0e7ff;
     background:
         linear-gradient(#121119, #121119) padding-box,
-        linear-gradient(135deg, #a855f7, #ec4899 50%, #4f46e5) border-box;
+        var(--accent-gradient) border-box;
 }
 
 .email-verified-text {

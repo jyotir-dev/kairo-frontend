@@ -13,4 +13,7 @@
 
     /* Accent */
     --accent-soft: #c4b5fd;
+
+    /* Gradient */
+    --accent-gradient: linear-gradient(135deg, #a855f7, #7c3aed 45%, #4338ca);
 }
