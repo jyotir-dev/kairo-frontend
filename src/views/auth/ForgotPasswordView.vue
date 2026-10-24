@@ -22,7 +22,7 @@ const router = useRouter();
 const email = ref();
 
 // States
-const sent = ref(true);
+const sent = ref(false);
 const loading = ref(false);
 
 // Forgot Password

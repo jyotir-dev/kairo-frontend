@@ -24,7 +24,7 @@ const confirmPassword = ref();
 
 // States
 const loading = ref(false);
-const expired = ref(true);
+const expired = ref(false);
 </script>
 
 <template>
@@ -134,7 +134,6 @@ const expired = ref(true);
 .back-login {
     font-family: var(--font-main);
     font-size: 12px;
-    text-align: center;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.40);
 }
