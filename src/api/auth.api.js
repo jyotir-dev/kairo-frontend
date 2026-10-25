@@ -48,3 +48,8 @@ export const forgotPassword = (email) => {
 export const resetPassword = (token, password) => {
     return http.post(`${BASE_PATH}/reset-password`, { token, password });
 };
+
+// Verify Reset Token
+export const verifyResetToken = (token) => {
+    return http.post(`${BASE_PATH}/reset-password/verify`, { token });
+};

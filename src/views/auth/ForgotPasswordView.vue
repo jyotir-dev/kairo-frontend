@@ -54,7 +54,7 @@ const forgotPassword = async () => {
             <p class="text">Enter the email on your account and we'll send you a link to choose a new one.</p>
         </div>
         <AuthInput v-model="email" icon="eva:email-fill" name="Email" type="email" placeholder="you@example.com" />
-        <AuthButton @click="forgotPassword" :loading="loading" >Send reset link</AuthButton>
+        <AuthButton @click="forgotPassword" :loading="loading">Send reset link</AuthButton>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
     <!-- Sent View -->
@@ -71,7 +71,8 @@ const forgotPassword = async () => {
             <p class="information">Single use <span class="value">Yes</span></p>
         </div>
         <AuthButton @click="router.push({ name: 'login' })">Back to log in</AuthButton>
-        <p class="try-again">Didn't get it? Check spam, or <span @click="sent = !sent" class="retry">try again</span></p>
+        <p class="try-again">Didn't get it? Check spam, or <span @click="sent = !sent" class="retry">try again</span>
+        </p>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
 </template>
@@ -150,6 +151,7 @@ const forgotPassword = async () => {
     max-width: 325px;
     gap: 20px;
 }
+
 .sent-text {
     display: flex;
     flex-direction: column;
@@ -157,6 +159,7 @@ const forgotPassword = async () => {
     gap: 5px;
     margin-top: 5px;
 }
+
 .sent-information {
     display: flex;
     align-items: stretch;
@@ -165,6 +168,7 @@ const forgotPassword = async () => {
     background: rgba(255, 255, 255, 0.025);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .information {
     display: flex;
     align-items: center;
@@ -176,12 +180,14 @@ const forgotPassword = async () => {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.information + .information {
+.information+.information {
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
+
 .value {
     color: white;
 }
+
 .try-again {
     font-family: var(--font-main);
     font-size: 12px;
@@ -189,10 +195,12 @@ const forgotPassword = async () => {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.40);
 }
+
 .retry {
     color: white;
     cursor: pointer;
 }
+
 .retry:hover {
     text-decoration: underline;
 }

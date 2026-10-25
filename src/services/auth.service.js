@@ -77,3 +77,9 @@ export const resetPassword = async (token, password) => {
     authStore.clearUser();
     return data;
 };
+
+// Verify Reset Token
+export const verifyResetToken = async (token) => {
+    const data = await authApi.verifyResetToken(token);
+    return data;
+};
