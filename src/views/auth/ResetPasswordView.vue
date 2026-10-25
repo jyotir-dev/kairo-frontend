@@ -1,7 +1,7 @@
 <script setup>
 // Vue
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 // Services
 import * as authService from '@/services/auth.service';
@@ -15,8 +15,14 @@ import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
 import PasswordStrength from '@/components/feedback/PasswordStrength.vue';
 
+// Route
+const route = useRoute();
+
 // Router
 const router = useRouter();
+
+// Queries
+const token = route.query.token;
 
 // Variables
 const newPassword = ref('');
@@ -25,6 +31,55 @@ const confirmPassword = ref('');
 // States
 const loading = ref(false);
 const step = ref('checking'); // checking | expired | reset
+
+// Verify Reset Token
+const verifyResetToken = async () => {
+
+    if (!token) {
+        step.value = 'expired';
+        return;
+    }
+
+    router.replace({ query: {} });
+
+    try {
+        const response = await authService.verifyResetToken(token);
+        step.value = 'reset';
+    } catch (error) {
+        if (error.status !== 400) {
+            notificationStore.error('Unable to check link', error.message);
+        }
+        step.value = 'expired';
+    }
+};
+
+// Reset Password
+const resetPassword = async () => {
+
+    if (newPassword.value !== confirmPassword.value) {
+        notificationStore.error('Passwords don\'t match', 'Make sure both passwords are the same');
+        return;
+    }
+
+    loading.value = true;
+
+    try {
+        const response = await authService.resetPassword(token, newPassword.value);
+        notificationStore.success('Password updated', 'Log in with your new password');
+        router.push({ name: 'login' });
+    } catch (error) {
+        if (error.status === 400 && error.message === 'Invalid or expired reset link.') {
+            step.value = 'expired';
+            return;
+        }
+        notificationStore.error('Unable to reset password', error.message);
+    } finally {
+        loading.value = false;
+    }
+};
+
+// Mounted
+onMounted(verifyResetToken);
 </script>
 
 <template>
