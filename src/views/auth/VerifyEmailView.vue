@@ -1,6 +1,6 @@
 <script setup>
 // Vue
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 // Services
