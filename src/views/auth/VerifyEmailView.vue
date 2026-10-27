@@ -1,32 +1,61 @@
 <script setup>
 // Vue
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
+// Services
+import * as authService from '@/services/auth.service';
+
+// Stores
+import notificationStore from '@/stores/notification.store';
 
 // Components
 import MailIcon from '@/components/icons/MailIcon.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
+import LinkOffIcon from '@/components/icons/LinkOffIcon.vue';
 import MailCheckIcon from '@/components/icons/MailCheckIcon.vue';
+
+
+// Route
+const route = useRoute();
 
 // Router
 const router = useRouter();
 
-const verified = ref(false)
+// Queries
+const token = route.query.token;
+
+// States
+const step = ref('expired'); // verifying | verified | expired
+
+// Verify Email
+const verifyEmail = async () => {
+
+    if (!token) {
+        step.value = 'expired';
+        return;
+    }
+
+    router.replace({ query: {} });
+
+    try {
+        const response = await authService.verifyEmail(token);
+        step.value = 'verified';
+    } catch (error) {
+        if (error.status !== 400) {
+            notificationStore.error('Unable to verify email', error.message);
+        }
+        step.value = 'expired';
+    }
+};
+
+// Mounted
+onMounted(verifyEmail);
 </script>
 
 <template>
-    <div v-if="verified" class="email-verified-view">
-        <div class="key-badge">
-            <MailCheckIcon />
-        </div>
-        <div class="email-verified-text">
-            <h1 class="headline">Email verified</h1>
-            <p class="text">You're all set. You can now create and accept escrows.</p>
-        </div>
-        <AuthButton @click="router.push({ name: 'dashboard' })">Go to dashboard</AuthButton>
-        <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
-    </div>
-    <div v-if="!verified" class="verifying-link-view">
+    <!-- Verifying Link View -->
+    <div v-if="step === 'verifying'" class="verifying-link-view">
         <div class="key-badge">
             <MailIcon />
         </div>
@@ -38,6 +67,30 @@ const verified = ref(false)
             <p class="status"><span class="status-spinner" aria-hidden="true"></span> Checking your link</p>
             <span class="time">A few seconds</span>
         </div>
+        <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
+    </div>
+    <!-- Email Verified View -->
+    <div v-else-if="step === 'verified'"  class="email-verified-view">
+        <div class="key-badge">
+            <MailCheckIcon />
+        </div>
+        <div class="email-verified-text">
+            <h1 class="headline">Email verified</h1>
+            <p class="text">You're all set. You can now create and accept escrows.</p>
+        </div>
+        <AuthButton @click="router.push({ name: 'dashboard' })">Go to dashboard</AuthButton>
+        <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
+    </div>
+    <!-- Link Expired View -->
+    <div v-else class="link-expired-view">
+        <div class="key-badge">
+            <LinkOffIcon />
+        </div>
+        <div class="link-expired-text">
+            <h1 class="headline">This link didn't work</h1>
+            <p class="text">It may have expired or already been used. You can request a new one from your dashboard.</p>
+        </div>
+        <AuthButton @click="router.push({ name: 'dashboard' })">Go to dashboard</AuthButton>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
 </template>
@@ -149,6 +202,23 @@ const verified = ref(false)
     border: 2px solid rgba(196, 181, 253, 0.2);
     border-top-color: var(--accent-soft);
     animation: spin 0.8s linear infinite;
+}
+
+.link-expired-view {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 325px;
+    gap: 20px;
+}
+
+.link-expired-text {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+    margin-top: 5px;
 }
 
 @keyframes spin {
