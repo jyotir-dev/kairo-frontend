@@ -6,13 +6,14 @@ import { useRouter } from 'vue-router';
 // Services
 import * as authService from '@/services/auth.service';
 
+// Stores
+import notificationStore from '@/stores/notification.store';
+
 // Components
 import AuthTabs from '@/components/navigation/AuthTabs.vue';
 import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
 import PasswordStrength from '@/components/feedback/PasswordStrength.vue';
-
-import notificationStore from '@/stores/notification.store';
 
 // Router
 const router = useRouter();
