@@ -13,6 +13,7 @@ import notificationStore from '@/stores/notification.store';
 import KeyIcon from '@/components/icons/KeyIcon.vue';
 import AuthInput from '@/components/inputs/AuthInput.vue';
 import AuthButton from '@/components/buttons/AuthButton.vue';
+import LinkOffIcon from '@/components/icons/LinkOffIcon.vue';
 import PasswordStrength from '@/components/feedback/PasswordStrength.vue';
 
 // Route
@@ -98,23 +99,8 @@ onMounted(verifyResetToken);
         </div>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
-    <!-- Link Expired View -->
-    <div v-else-if="step === 'expired'" class="link-expired-view">
-        <div class="key-badge">
-            <KeyIcon />
-        </div>
-        <div class="link-expired-text">
-            <h1 class="headline">The link has expired</h1>
-            <p class="text">Reset links work once and last 60 minutes. Request a new one and we'll send it right away.
-            </p>
-        </div>
-        <AuthButton @click="router.push({ name: 'forgotPassword' })">Request a new link</AuthButton>
-        <p class="remembered">Remembered it? <span @click="$router.push({ name: 'login' })" class="login">Back to log
-                in</span></p>
-        <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
-    </div>
     <!-- Reset Password View -->
-    <div v-else class="reset-password-view">
+    <div v-else-if="step === 'reset'" class="reset-password-view">
         <RouterLink class="back-login" :to="{ name: 'login' }">&leftarrow; Back to log in</RouterLink>
         <div class="key-badge">
             <KeyIcon />
@@ -131,6 +117,21 @@ onMounted(verifyResetToken);
         <AuthInput v-model="confirmPassword" icon="eva:shield-fill" name="Confirm password" type="password"
             placeholder="Confirm password" />
         <AuthButton @click="resetPassword" :loading="loading">Reset Password</AuthButton>
+        <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
+    </div>
+    <!-- Link Expired View -->
+    <div v-else class="link-expired-view">
+        <div class="key-badge">
+            <LinkOffIcon />
+        </div>
+        <div class="link-expired-text">
+            <h1 class="headline">The link has expired</h1>
+            <p class="text">Reset links work once and last 60 minutes. Request a new one and we'll send it right away.
+            </p>
+        </div>
+        <AuthButton @click="router.push({ name: 'forgotPassword' })">Request a new link</AuthButton>
+        <p class="remembered">Remembered it? <span @click="$router.push({ name: 'login' })" class="login">Back to log
+                in</span></p>
         <p class="footer">Kairo · Secure peer-to-peer escrow on Solana</p>
     </div>
 </template>
