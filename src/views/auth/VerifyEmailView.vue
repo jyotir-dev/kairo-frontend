@@ -26,7 +26,7 @@ const router = useRouter();
 const token = route.query.token;
 
 // States
-const step = ref('expired'); // verifying | verified | expired
+const step = ref('verifying'); // verifying | verified | expired
 
 // Verify Email
 const verifyEmail = async () => {
